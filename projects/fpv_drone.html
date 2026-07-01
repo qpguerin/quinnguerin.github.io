@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+  EDIT ME:
+  - Replace the [PLACEHOLDER] text with your real write-up.
+  - Add real photos by replacing the dashed image boxes: swap the <div class="img-placeholder">
+    for <img src="your-photo.jpg" alt="description"> once you upload photos into this folder.
+  - Add real links in the "Links" section near the bottom (build log, video, GitHub repo, etc.)
+    by replacing href="#" with the real URL.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPV Drone Build — Quinn Guerin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15171a; --bg-panel:#1c1f23; --bg-panel-2:#23272c;
+    --border:#2c3036; --border-strong:#3a3f46;
+    --text:#e8e9eb; --text-dim:#9aa1a9; --text-muted:#6b7178;
+    --accent:#6fb8e0; --accent-strong:#8fc7e8; --accent-tint:rgba(111,184,224,0.12);
+    --max:820px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  h1,h2,h3{margin:0; font-weight:700; letter-spacing:-0.01em;}
+  p{margin:0;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    padding:1.2rem 1.5rem;
+  }
+  .header-inner{ max-width:var(--max); margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+  .back-link{ display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:var(--text-dim); transition:color 0.2s; }
+  .back-link:hover{ color:var(--accent); }
+  .back-link svg{ width:15px; height:15px; }
+  .logo{ font-weight:700; font-size:0.9rem; }
+  .logo span{ color:var(--accent); }
+
+  main{ max-width:var(--max); margin:0 auto; padding:3.5rem 1.5rem 5rem; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent);
+    display:flex; align-items:center; gap:0.6rem; margin-bottom:1rem;
+  }
+  .eyebrow::before{ content:""; width:16px; height:1px; background:var(--accent); display:inline-block; }
+
+  h1.title{ font-size:clamp(1.9rem, 4vw, 2.6rem); line-height:1.1; margin-bottom:1rem; }
+  .subtitle{ color:var(--text-dim); font-size:1.05rem; line-height:1.7; max-width:65ch; margin-bottom:2rem; }
+
+  .tag-row{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2.5rem; }
+  .tag{
+    font-family:'IBM Plex Mono'; font-size:0.7rem; letter-spacing:0.04em;
+    color:var(--text-muted); background:var(--bg-panel-2);
+    padding:0.3rem 0.7rem; border-radius:6px;
+  }
+
+  .img-placeholder{
+    width:100%; aspect-ratio:16/9;
+    border:1px dashed var(--border-strong); border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-muted); font-size:0.85rem;
+    background:var(--bg-panel);
+    margin-bottom:2.5rem;
+  }
+  .img-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:2.5rem; }
+  .img-row .img-placeholder{ margin-bottom:0; aspect-ratio:4/3; }
+
+  section.block{ margin-bottom:2.6rem; }
+  section.block h2{ font-size:1.25rem; margin-bottom:0.9rem; }
+  section.block p{ color:var(--text-dim); line-height:1.8; font-size:0.98rem; }
+  section.block p + p{ margin-top:1rem; }
+  section.block ul{ margin:0; padding-left:1.2rem; color:var(--text-dim); line-height:1.8; font-size:0.98rem; }
+
+  .spec-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; margin-top:1rem; }
+  .spec-card{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:10px;
+    padding:1rem 1.1rem;
+  }
+  .spec-label{ font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.4rem; }
+  .spec-value{ font-size:0.92rem; font-weight:600; }
+
+  .link-list{ display:flex; flex-direction:column; gap:0.8rem; }
+  .link-item{
+    display:flex; align-items:center; gap:0.7rem;
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:10px;
+    padding:0.9rem 1.1rem; font-size:0.9rem; color:var(--text-dim);
+    transition:border-color 0.2s, color 0.2s;
+  }
+  .link-item:hover{ border-color:var(--accent); color:var(--text); }
+  .link-item svg{ width:17px; height:17px; stroke:var(--accent); flex-shrink:0; }
+
+  @media (max-width:640px){
+    .img-row{ grid-template-columns:1fr; }
+    .spec-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="../index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to portfolio
+    </a>
+    <div class="logo">Quinn <span>Guerin</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="eyebrow">Project</div>
+  <h1 class="title">FPV Drone Build</h1>
+  <p class="subtitle">Designing, printing, and flying a first-person-view racing drone — from CAD model to a frame that survives a crash.</p>
+
+  <div class="tag-row">
+    <span class="tag">CAD DESIGN</span><span class="tag">3D PRINTING</span><span class="tag">FLIGHT TUNING</span><span class="tag">ELECTRONICS</span>
+  </div>
+
+  <div class="img-placeholder">Add a hero photo of the finished drone here (replace this box with an &lt;img&gt; tag)</div>
+
+  <section class="block">
+    <h2>Overview</h2>
+    <p>[Add 2-3 sentences on why you started this project and what you set out to build.]</p>
+  </section>
+
+  <div class="img-row">
+    <div class="img-placeholder">CAD model / render</div>
+    <div class="img-placeholder">Build in progress</div>
+  </div>
+
+  <section class="block">
+    <h2>Design process</h2>
+    <p>Modeled the frame, prop guards, and camera mount in CAD, then iterated across several print revisions to balance weight against crash durability. [Add specifics: what changed between revisions, what failed, what you learned.]</p>
+    <p>Soldered and wired the power distribution system, then tuned the flight controller for stable, responsive flight. [Add details on tuning process, PID settings, or specific challenges.]</p>
+  </section>
+
+  <section class="block">
+    <h2>Specs</h2>
+    <div class="spec-grid">
+      <div class="spec-card"><div class="spec-label">Frame material</div><div class="spec-value">[e.g. PETG]</div></div>
+      <div class="spec-card"><div class="spec-label">Weight</div><div class="spec-value">[e.g. 285g]</div></div>
+      <div class="spec-card"><div class="spec-label">Flight controller</div><div class="spec-value">[e.g. Betaflight]</div></div>
+      <div class="spec-card"><div class="spec-label">Build time</div><div class="spec-value">[e.g. 6 weeks]</div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Links</h2>
+    <div class="link-list">
+      <a class="link-item" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Flight footage / video walkthrough
+      </a>
+      <a class="link-item" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        CAD files / GitHub repo
+      </a>
+      <a class="link-item" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Full photo album
+      </a>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>
